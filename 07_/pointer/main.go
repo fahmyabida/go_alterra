@@ -16,8 +16,8 @@ func main() {
 	fmt.Println("value raw b", b)
 	fmt.Println("value pointer b", *b)
 	fmt.Println("=====")
-	var c string
-	c = *b
+	var c *string
+	c = b
 	fmt.Println("address c", &c)
 	fmt.Println("value raw c", c)
 	// fmt.Println("value pointer c", *c)

@@ -6,20 +6,40 @@ import (
 )
 
 func main() {
-	fmt.Println(EncCaesarChiper(3, "a"))
+	fmt.Println(ChiperSubtition("zyx"))
+	// s := "abc"
+	// fmt.Println(string(s[0]))
 }
 
-func EncCaesarChiper(offset int, s string) string {
+func ChiperSubtition(s string) string {
 	result := ""
-	alphabetic := "abcdefghijklmnopqrstuvwxyz"
-	maxAlphabetic := len(alphabetic)
+	alphabetic := "abcdefghijklmnopqrstuvwxyz" // <-- 26 character
+	kebalikan :=  "zyxwvutsrqponmlkjihgfedcba" // <-- 26 character
+	// maxAlphabetic := len(alphabetic) // 26
 	for _, row := range s {
 		idxOfAlphabet := strings.Index(alphabetic, string(row))
-		idxChiperCaesar := (idxOfAlphabet + offset) % maxAlphabetic
-		result += string(alphabetic[idxChiperCaesar])
+		result += string(kebalikan[idxOfAlphabet])
 	}
 	return result
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 func DecCaesarChiper(offset int, s string) string {
 	result := ""
