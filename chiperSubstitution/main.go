@@ -22,6 +22,7 @@ func ChiperSubtitution(s string) string {
 }
 
 func DecCaesarChiper(offset int, s string) string {
+	result := ""
 	alphabetic := "abcdefghijklmnopqrstuvwxyz"
 	maxAlphabetic := len(alphabetic)
 	for _, row := range s {
@@ -33,10 +34,12 @@ func DecCaesarChiper(offset int, s string) string {
 				idxChiperCaesar = maxAlphabetic - idxChiperCaesar
 				idxChiperCaesar = idxChiperCaesar * -1
 				idxChiperCaesar = idxChiperCaesar % maxAlphabetic
+				result += string(alphabetic[idxChiperCaesar])
 			} else {
 				idxChiperCaesar = maxAlphabetic - idxChiperCaesar
+				result += string(alphabetic[idxChiperCaesar])
 			}
 		}
 	}
-	return "implement me!"
+	return result
 }
