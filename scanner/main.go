@@ -22,10 +22,9 @@ func main() {
 		sort.Strings(sArr)
 		for i := 0; i < len(sArr); i++ {
 			for j := 0; j < len(sArr); j++ {
-				
 
+			}
+			fmt.Printf("Case #%v: %v\n", idx, sArr)
 		}
-		fmt.Printf("Case #%v: %v\n", idx, sArr)
 	}
-
 }
