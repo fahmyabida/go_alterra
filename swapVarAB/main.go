@@ -14,4 +14,6 @@ func swap(a, b *int) {
 	tmp := a
 	*a = *b
 	*b = *tmp
+	// OR
+	// *a, *b = *b, *a
 }

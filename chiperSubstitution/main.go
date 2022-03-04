@@ -6,15 +6,13 @@ import (
 )
 
 func main() {
-	fmt.Println(ChiperSubtition("zyx"))
-	// s := "abc"
-	// fmt.Println(string(s[0]))
+	fmt.Println(ChiperSubtitution("zyx"))
 }
 
-func ChiperSubtition(s string) string {
+func ChiperSubtitution(s string) string {
 	result := ""
 	alphabetic := "abcdefghijklmnopqrstuvwxyz" // <-- 26 character
-	kebalikan :=  "zyxwvutsrqponmlkjihgfedcba" // <-- 26 character
+	kebalikan := "zyxwvutsrqponmlkjihgfedcba"  // <-- 26 character
 	// maxAlphabetic := len(alphabetic) // 26
 	for _, row := range s {
 		idxOfAlphabet := strings.Index(alphabetic, string(row))
@@ -22,24 +20,6 @@ func ChiperSubtition(s string) string {
 	}
 	return result
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 func DecCaesarChiper(offset int, s string) string {
 	result := ""
@@ -58,9 +38,6 @@ func DecCaesarChiper(offset int, s string) string {
 				idxChiperCaesar = maxAlphabetic - idxChiperCaesar
 			}
 		}
-		// fmt.Println(idxChiperCaesar)
-		// fmt.Println(string(alphabetic[idxChiperCaesar]))
-		result += string(alphabetic[idxChiperCaesar])
+		fmt.Printf("Case #%v: %v \n", i, strings.Join(result, " "))
 	}
-	return result
 }
