@@ -6,16 +6,16 @@ func main() {
 	fmt.Println(primeX(3))
 }
 
-func primeX(n int) int {
-	result, i := 0, 2
+func primeX(idx int) int {
+	result, number := 1, 5
 	for {
-		if val, ok := isPrime(i); ok {
-			result++
-			if result == n {
+		if val, ok := isPrime(number); ok {
+			result = result + 1
+			if result == idx {
 				return val
 			}
 		}
-		i ++
+		number ++
     }
 }
 

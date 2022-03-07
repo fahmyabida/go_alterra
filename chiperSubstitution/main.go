@@ -2,11 +2,22 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
 func main() {
-	fmt.Println(ChiperSubtitution("zyx"))
+	iArr := []int{5,3,6}
+	fmt.Println(iArr)
+	sort.Ints(iArr) // ASC
+	fmt.Println(iArr)
+	sort.Slice(iArr, func(i, j int) bool {
+		return iArr[i] > iArr[j]
+	}) // DESC
+	fmt.Println(iArr)
+
+
+	// fmt.Println(ChiperSubtitution("zyx"))
 }
 
 func ChiperSubtitution(s string) string {

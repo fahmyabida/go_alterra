@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func PrimeNumber(N int) (isPrimeNumber bool) {
 	if N <= 1 {
@@ -16,6 +19,20 @@ func PrimeNumber(N int) (isPrimeNumber bool) {
 	return true // bilangin prima
 }
 
+func PrimeNumber2(number int) bool {
+	if number <= 2 {
+		return false
+	}
+	akar := math.Sqrt(float64(number))
+	root := int(akar)
+	for i := 2; i <= root; i++ {
+		if number%i == 0 {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
-	fmt.Println("hasil : ", PrimeNumber(5))
+	fmt.Println("hasil : ", PrimeNumber2(127))
 }
