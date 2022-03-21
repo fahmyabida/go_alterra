@@ -1,0 +1,36 @@
+1. db.books.find({$or: [{authorID :1}, {authorID: 2}]})
+2. db.books.find({authorID:1}, {_id:1, title: "". price:"""})
+3. db.books.
+aggregate([{ $group: {_id: "$authorID", total: {$sum: "$stats.page"}}}, {$match : {_id : 2}}])
+
+4. db.authors.
+aggregate({$lookup: {from: "books", localField: "_id", foreignField: "authorID", as: "books"} })
+	
+5. lookup 2 foreign
+
+6. belum
+
+7. db.books.aggregate([ 
+{ $lookup: { from: "authors", localField: "authorID", foreignField: "_id", as: "author" } }, 
+{ $lookup: { from: "publishers", localField: "publisherID", foreignField: "_id", as: "publisher" } }, 
+{ $project: { title: 1, price: 1, author: { $arrayElemAt: ["$author", 0]}, publisher: { $arrayElemAt: ["$publisher", 0]} } },
+{ $project: { _id: 0, title: 1, price: 1, author: { $concat: ["$author.firstName", " ", "$author.lastName"] }, publisher: "$publisher.publisherName" } },
+{ $sort: { price : -1}}
+])
+
+
+8. db.books.aggregate([ 
+{ $lookup: { from: "authors", localField: "authorID", foreignField: "_id", as: "author" } }, 
+{ $lookup: { from: "publishers", localField: "publisherID", foreignField: "_id", as: "publisher" } }, 
+{ $project: { title: 1, price: 1, author: { $arrayElemAt: ["$author", 0]}, publisher: { $arrayElemAt: ["$publisher", 0]} } },
+{ $project: { _id: 0, title: 1, price: 1, author: { $concat: ["$author.firstName", " ", "$author.lastName"]}, publisher: "$publisher.publisherName"}}
+{ $sort: { price: -1 } }])
+
+9. db.books.aggregate([
+{ $lookup : {from: "publishers", localField:"publisherID", foreignField:"_id", as: "publisher"}},
+{ $project: {title: 1, price: 1, publisher: 1}},
+{ $project: {title: 1, price: 1, publisher: { $arrayElemAt : ["$publisher", 0] } } },
+{ $project: {title: 1, price: 1, publisher: "$publisher.publisherName" } },
+{ $skip : 2 },
+{ $limit: 2}
+]) 

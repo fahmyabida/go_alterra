@@ -12,6 +12,13 @@ create table product_types (
     updated_at timestamp
 );
 
+create table user {
+    id int,
+    name text,
+    is_active bool,
+}
+insert into user (id, name, is_active) values (1, 'fahmy', true)
+
 create table product_descriptions
 (
     id int(11),
