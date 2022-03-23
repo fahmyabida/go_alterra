@@ -13,7 +13,7 @@ func playingDomino(cards [][]int, deck []int) interface{} {
 	isFound := false
 	biggestPair := 0
 	for i := 0; i < len(cards); i++ {
-		if isLeftDeckMatchAndBiggerThanBiggestPair() { // true
+		if isLeftDeckMatchAndBiggerThanBiggestPair(i, deck, cards, biggestPair) { // true
 			biggestPair = deck[0]
 			idxBiggestPair = i
 			isFound = true
@@ -41,7 +41,7 @@ func playingDomino(cards [][]int, deck []int) interface{} {
 	return cards[idxBiggestPair]
 }
 
-func isLeftDeckMatchAndBiggerThanBiggestPair(i int, deck[]int, cards [][]int, 
+func isLeftDeckMatchAndBiggerThanBiggestPair(i int, deck []int, cards [][]int,
 	biggestPair int) bool {
 	return deck[0] == cards[i][0] && deck[0] > biggestPair ||
 		deck[0] == cards[i][1] && deck[0] > biggestPair

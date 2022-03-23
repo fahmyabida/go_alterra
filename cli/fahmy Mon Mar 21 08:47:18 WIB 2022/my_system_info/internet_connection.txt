@@ -1,0 +1,8 @@
+PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: icmp_seq=0 ttl=115 time=36.828 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=36.611 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=115 time=35.533 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 35.533/36.324/36.828/0.566 ms

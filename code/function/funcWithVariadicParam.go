@@ -6,7 +6,7 @@ func NamaFunc(a int) int {
 	return a + 1
 }
 
-// PrintMessage 
+// PrintMessage
 func PrintMessage(a int, sArr ...string) {
 	fmt.Println(a)
 	for idx, row := range sArr {
@@ -21,4 +21,7 @@ func main() {
 	d := "Is"
 	e := "Amazing"
 	PrintMessage(10, a, b, c, d, e, a, b, c, e, d, c, a)
+	luas := hitungLuasSegitga(4.0, 2.0)
+	fmt.Println(luas())
+	Print()
 }

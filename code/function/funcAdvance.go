@@ -15,8 +15,3 @@ func Print() {
 	fmt.Println("3")
 	fmt.Println("4")
 }
-
-func main() {
-	Print()
-}
-
