@@ -1,0 +1,10 @@
+# untuk download library ke local laptop / pc
+go get github.com/labstack/echo/v4 
+
+# initilisasi library manager
+# pindah ke direktori aktif yg akan di buat 'go.mod' nya
+# go.mod adalah hasil jadi dari command 'go mod init'
+go mod init
+
+# untuk me-scan library yg dipakai dalam folder aktif
+go mod tidy
