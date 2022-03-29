@@ -25,13 +25,13 @@ func InitialMigration() {
 func InitDB() {
 	config := Config{
 		DB_Username: "root",
-		DB_Password: PWD_DB,
+		DB_Password: "admin123",
 		DB_Port:     "3306",
 		DB_Host:     "localhost",
 		DB_Name:     "belajar_orm",
 	}
 
-	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	connectionString := "%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		config.DB_Username,
 		config.DB_Password,
 		config.DB_Host,

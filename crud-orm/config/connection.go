@@ -10,7 +10,7 @@ import (
 
 func ConnectToDatabase() {
 	fmt.Println("connet to db")
-	dsn := fmt.Sprintf("root:%v@tcp(127.0.0.1:3306)/belajar_orm", model.PASSWORD_DB)
+	dsn := "root:admin123@tcp(127.0.0.1:3306)/belajar_orm"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
