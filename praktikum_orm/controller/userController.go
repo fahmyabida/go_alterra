@@ -1,6 +1,8 @@
-package main
+package controller
 
 import (
+	"alterra/go_alterra/praktikum_orm/lib/database"
+	"alterra/go_alterra/praktikum_orm/models"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -8,26 +10,19 @@ import (
 
 // get all users
 func GetAllUserController(c echo.Context) error {
-	var users []User
-
-	// SELECT * FROM USERS;
-	err := DB.Find(&users).Error
+	listUser, err := database.GetAllUser()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success get all users",
-		"users":   users,
+		"users":   listUser,
 	})
 }
 
 // get user by id
 func GetUserController(c echo.Context) error {
-	var user User
-
-	stringId := c.Param("id")
-	// SELECT * FROM users WHERE id = ?;
-	err := DB.First(&user, "id = ?", stringId).Debug().Error
+	user, err := database.GetSingleUserById(c.Param("id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -39,10 +34,10 @@ func GetUserController(c echo.Context) error {
 
 // create new user
 func CreateUserController(c echo.Context) error {
-	user := User{}
+	user := models.User{}
 	c.Bind(&user)
-
-	if err := DB.Save(&user).Error; err != nil {
+	err := database.CreateNewUser(user)
+	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
@@ -53,22 +48,21 @@ func CreateUserController(c echo.Context) error {
 
 // delete user by id
 func DeleteUserController(c echo.Context) error {
-	stringId := c.Param("id")
-	err := DB.Delete(&User{}, "id = ?", stringId).Debug().Error
+	id := c.Param("id")
+	err := database.DeleteUserById(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success delete user with id '" + stringId + "'",
+		"message": "success delete user with id '" + id + "'",
 	})
 }
 
 // update user by id
 func UpdateUserController(c echo.Context) error {
-	user := User{}
+	user := models.User{}
 	c.Bind(&user)
-	stringId := c.Param("id")
-	err := DB.Model(&user).Where("id = ?", stringId).Updates(user).Debug().Error
+	err := database.UpdateUserById(c.Param("id"), user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

@@ -1,29 +1,21 @@
 package main
 
-import "github.com/labstack/echo"
+import (
+	"alterra/go_alterra/praktikum_orm/config"
+	"alterra/go_alterra/praktikum_orm/routes"
 
-// init adalah function yg dijalankan sebelum func main()
+	"github.com/labstack/echo"
+)
+
 func init() {
-	InitDB()
-	InitialMigration()
+	config.InitDB()
+	config.InitialMigration()
 }
 
 func main() {
-	// create a new echo instance
 	e := echo.New()
 
-	// just check the echo is running well & library just fine
-	e.GET("/ping", func(c echo.Context) error {
-		return c.JSON(200, "pong")
-	})
+	routes.Route(e)
 
-	// Route / to handler function
-	e.GET("/users", GetAllUserController)
-	e.GET("/users/:id", GetUserController)
-	e.POST("/users", CreateUserController)
-	e.DELETE("/users/:id", DeleteUserController)
-	e.PUT("/users/:id", UpdateUserController)
-
-	// start the server, and log if it fails
 	e.Logger.Fatal(e.Start(":8000"))
 }

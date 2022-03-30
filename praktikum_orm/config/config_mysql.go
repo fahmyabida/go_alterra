@@ -1,6 +1,7 @@
-package main
+package config
 
 import (
+	"alterra/go_alterra/praktikum_orm/models"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -19,7 +20,7 @@ type Config struct {
 }
 
 func InitialMigration() {
-	DB.AutoMigrate(&User{})
+	DB.AutoMigrate(&models.User{})
 }
 
 func InitDB() {
@@ -31,7 +32,7 @@ func InitDB() {
 		DB_Name:     "belajar_orm",
 	}
 
-	connectionString := "%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		config.DB_Username,
 		config.DB_Password,
 		config.DB_Host,
