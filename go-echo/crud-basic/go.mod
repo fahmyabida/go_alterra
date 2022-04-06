@@ -1,4 +1,4 @@
-module alterra/go_alterra/praktikum_orm
+module alterra/go_alterra/crud-basic
 
 go 1.17
 

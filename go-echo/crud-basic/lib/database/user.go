@@ -1,8 +1,8 @@
 package database
 
 import (
-	"alterra/go_alterra/praktikum_orm/config"
-	"alterra/go_alterra/praktikum_orm/models"
+	"alterra/go_alterra/crud-basic/config"
+	"alterra/go_alterra/crud-basic/models"
 	"fmt"
 )
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"alterra/go_alterra/praktikum_orm/config"
-	"alterra/go_alterra/praktikum_orm/routes"
+	"alterra/go_alterra/crud-basic/config"
+	"alterra/go_alterra/crud-basic/routes"
 
 	"github.com/labstack/echo"
 )

@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"alterra/go_alterra/praktikum_orm/lib/database"
-	"alterra/go_alterra/praktikum_orm/models"
+	"alterra/go_alterra/crud-basic/lib/database"
+	"alterra/go_alterra/crud-basic/models"
 	"net/http"
 
 	"github.com/labstack/echo"

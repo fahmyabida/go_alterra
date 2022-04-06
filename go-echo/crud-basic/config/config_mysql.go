@@ -1,7 +1,7 @@
 package config
 
 import (
-	"alterra/go_alterra/praktikum_orm/models"
+	"alterra/go_alterra/crud-basic/models"
 	"fmt"
 
 	"gorm.io/driver/mysql"
