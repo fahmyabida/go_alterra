@@ -1,8 +1,0 @@
-1. buat file main.go
-2. go mod init
-3. connection database
-
-
-DDL
-DML
-migration
