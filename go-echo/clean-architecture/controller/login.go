@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"belajar-go-echo/model"
+	"belajar-go-echo/repository"
 	"encoding/base64"
 	"fmt"
 	"strings"
@@ -11,10 +13,11 @@ import (
 )
 
 type LoginController struct {
+	iUserRepo repository.IUserRepo
 }
 
-func NewLoginController() LoginController {
-	return LoginController{}
+func NewLoginController(iUserRepo repository.IUserRepo) LoginController {
+	return LoginController{iUserRepo}
 }
 
 func (ctrl LoginController) Login(c echo.Context) error {
@@ -36,24 +39,24 @@ func (ctrl LoginController) Login(c echo.Context) error {
 	// joe:secret
 	arrDecodeString := strings.Split(string(decodedByte), ":")
 	username, password := arrDecodeString[0], arrDecodeString[1]
-	if username != "joe" && password != "secret" {
+	user, err := ctrl.iUserRepo.GetUserByUsernameAndPassword(username, password)
+	if err != nil {
 		return c.JSON(400, map[string]interface{}{
 			"message": "username / password not registered",
 		})
 	}
-	jwToken := ctrl.CreateJWT(username)
+	jwToken := ctrl.CreateJWT(user)
 	return c.JSON(200, map[string]interface{}{
 		"token": jwToken,
 	})
 }
 
-func (ctrl LoginController) CreateJWT(username string) string {
+func (ctrl LoginController) CreateJWT(user model.User) string {
 	timeNow := time.Now()
-	fmt.Println(timeNow)
-	fmt.Println(timeNow.Format(time.RFC3339))
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, // header
 		jwt.MapClaims{ // payload
-			"username":   username,
+			"username":   user.Username,
+			"name":       user.Name,
 			"created_at": timeNow,
 			"expired_at": timeNow.Add(1 * time.Hour),
 		})

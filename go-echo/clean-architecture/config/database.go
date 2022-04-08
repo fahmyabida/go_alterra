@@ -10,7 +10,7 @@ import (
 
 func ConnectDB() (*gorm.DB, error) {
 	// return gorm.Open(sqlite.Open("app.db"), &gorm.Config{})
-	connectionString := fmt.Sprintf("root:admin123@tcp(192.168.0.113:3306)/belajar_orm")
+	connectionString := fmt.Sprintf("root:Admin123@tcp(192.168.0.113:3306)/clean")
 
 	var err error
 	db, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{})

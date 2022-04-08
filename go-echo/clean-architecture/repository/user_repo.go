@@ -9,6 +9,7 @@ import (
 
 type IUserRepo interface {
 	GetAllUser() ([]model.User, error)
+	GetUserByUsernameAndPassword(username, password string) (model.User, error)
 	InsertUser(user model.User) error
 }
 
@@ -27,6 +28,15 @@ func (r UserRepo) GetAllUser() ([]model.User, error) {
 		fmt.Println("error while GetAllUser", err)
 	}
 	return users, err
+}
+
+func (repo UserRepo) GetUserByUsernameAndPassword(username, password string) (model.User, error) {
+	var user model.User
+	err := repo.db.Where("username = ? AND password = ?", username, password).First(&user).Error
+	if err != nil {
+		fmt.Println("error while GetUserByUsernameAndPassword", err)
+	}
+	return user, err
 }
 
 func (repo UserRepo) InsertUser(user model.User) error {

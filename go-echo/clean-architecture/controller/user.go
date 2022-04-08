@@ -3,6 +3,7 @@ package controller
 import (
 	"belajar-go-echo/model"
 	"belajar-go-echo/repository"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
 )
@@ -29,11 +30,13 @@ func (ctrl UserController) GetAllData(c echo.Context) error {
 
 func (ctrl UserController) Create(c echo.Context) error {
 	user := model.User{}
+	fmt.Println("sebelum binding", user)
 	if err := c.Bind(&user); err != nil {
 		return c.JSON(400, echo.Map{
 			"error": err.Error(),
 		})
 	}
+	fmt.Println("sesudah binding", user)
 	err := ctrl.iUserRepo.InsertUser(user)
 	if err != nil {
 		return c.JSON(500, echo.Map{
