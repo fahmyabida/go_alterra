@@ -1,14 +1,12 @@
 package controller
 
 import (
-	"belajar-go-echo/model"
 	"belajar-go-echo/repository"
+	"belajar-go-echo/utils"
 	"encoding/base64"
 	"fmt"
 	"strings"
-	"time"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
 
@@ -39,32 +37,18 @@ func (ctrl LoginController) Login(c echo.Context) error {
 	// joe:secret
 	arrDecodeString := strings.Split(string(decodedByte), ":")
 	username, password := arrDecodeString[0], arrDecodeString[1]
-	user, err := ctrl.iUserRepo.GetUserByUsernameAndPassword(username, password)
+	user, err := ctrl.iUserRepo.GetUserByUsername(username)
 	if err != nil {
 		return c.JSON(400, map[string]interface{}{
-			"message": "username / password not registered",
+			"message": "user not registered",
+		})
+	} else if user.Password != password {
+		return c.JSON(400, map[string]interface{}{
+			"message": "wrong password",
 		})
 	}
-	jwToken := ctrl.CreateJWT(user)
+	jwToken := utils.CreateJWT(user)
 	return c.JSON(200, map[string]interface{}{
 		"token": jwToken,
 	})
-}
-
-func (ctrl LoginController) CreateJWT(user model.User) string {
-	timeNow := time.Now()
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, // header
-		jwt.MapClaims{ // payload
-			"username":   user.Username,
-			"name":       user.Name,
-			"created_at": timeNow,
-			"expired_at": timeNow.Add(1 * time.Hour),
-		})
-
-	// Sign and get the complete encoded token as a string using the secret
-	tokenString, err := token.SignedString([]byte("abcde12345"))
-	if err != nil {
-		fmt.Println(err)
-	}
-	return tokenString
 }

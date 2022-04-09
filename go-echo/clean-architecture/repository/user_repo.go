@@ -8,9 +8,10 @@ import (
 )
 
 type IUserRepo interface {
-	GetAllUser() ([]model.User, error)
-	GetUserByUsernameAndPassword(username, password string) (model.User, error)
+	GetAllUser() ([]model.UserCostum, error)
+	GetUserByUsername(username string) (model.User, error)
 	InsertUser(user model.User) error
+	GetUserById(id int) (model.User, error)
 }
 
 type UserRepo struct {
@@ -21,8 +22,8 @@ func NewUserRepo(db *gorm.DB) IUserRepo {
 	return &UserRepo{db}
 }
 
-func (r UserRepo) GetAllUser() ([]model.User, error) {
-	users := []model.User{}
+func (r UserRepo) GetAllUser() ([]model.UserCostum, error) {
+	users := []model.UserCostum{}
 	err := r.db.Find(&users).Error // SELECT * FROM user
 	if err != nil {
 		fmt.Println("error while GetAllUser", err)
@@ -30,9 +31,9 @@ func (r UserRepo) GetAllUser() ([]model.User, error) {
 	return users, err
 }
 
-func (repo UserRepo) GetUserByUsernameAndPassword(username, password string) (model.User, error) {
+func (repo UserRepo) GetUserByUsername(username string) (model.User, error) {
 	var user model.User
-	err := repo.db.Where("username = ? AND password = ?", username, password).First(&user).Error
+	err := repo.db.Where("username = ?", username).First(&user).Error
 	if err != nil {
 		fmt.Println("error while GetUserByUsernameAndPassword", err)
 	}
@@ -45,4 +46,13 @@ func (repo UserRepo) InsertUser(user model.User) error {
 		fmt.Println("error while InsertUser", err)
 	}
 	return err
+}
+
+func (r UserRepo) GetUserById(id int) (model.User, error) {
+	var user model.User
+	err := r.db.Where("id = ?", id).First(&user).Error
+	if err != nil {
+		fmt.Println("error while GetUserById", err)
+	}
+	return user, err
 }
