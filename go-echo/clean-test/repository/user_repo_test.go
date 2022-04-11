@@ -87,12 +87,10 @@ func TestInsertUser(t *testing.T) {
 	}
 	// ekspektasi query yg dijalankan sama si lib GORM
 	tu.mock.ExpectBegin()
-	tu.mock.ExpectQuery(regexp.QuoteMeta(
-		"INSERT INTO `users` (`username`,`password`,`name`,`role`) VALUES (?,?,?,?)")).
-		WithArgs(user.Username, user.Password, user.Name, user.Role).
-		WillReturnRows(
-			sqlmock.NewRows([]string{"id", "username", "password", "name", "role"}).
-				AddRow(1, user.Username, user.Password, user.Name, user.Role))
+	tu.mock.ExpectExec(regexp.QuoteMeta("INSERT INTO `users` (`username`,`password`,`name`,`role`,`id`) VALUES (?,?,?,?,?)")).
+		WithArgs(user.Username, user.Password, user.Name, user.Role, user.Id).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+	tu.mock.ExpectCommit()
 	// result query GORM nya seperti apa
 	err := tu.iFaceUserRepo.InsertUser(user)
 	if err != nil {
