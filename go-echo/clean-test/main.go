@@ -14,10 +14,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	if err = config.MigrateDB(db); err != nil {
+		panic(err)
+	}
 
-	iUserRepo := repository.NewUserRepo(db)                     // --> layer data
+	iUserRepo := repository.NewUserRepo(db) // --> layer data   <-- unit test
+
 	loginController := controller.NewLoginController(iUserRepo) // --> layer controller
-	userController := controller.NewUserController(iUserRepo)
+	userController := controller.NewUserController(iUserRepo)   // --> layer controller
 
 	app := echo.New()
 
